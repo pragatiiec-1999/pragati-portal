@@ -249,17 +249,22 @@ def save_to_google_sheets(rm_data, chat_history):
         rm_data.get("UDISE", ""), rm_data.get("Observer", "")
     ] + user_answers
 
-    try:
+   try:
         scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-        creds = ServiceAccountCredentials.from_json_keyfile_name("service_account.json", scope)
+        
+        # This line pulls the credentials from the "Advanced Settings" you pasted on Streamlit
+        creds_dict = st.secrets["gcp_service_account"]
+        creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
+        
         client = gspread.authorize(creds)
         
-        sheet = client.open("IEC Process Tracker 2026").sheet1
+        # Use your TEST Sheet ID here first
+        sheet = client.open_by_key("YOUR_TEST_SHEET_ID_HERE").sheet1
         sheet.append_row(data_row)
         return True
     except Exception as e:
-        print(f"Sheet Simulation (No JSON Found or Error): {e}")
-        return True 
+        st.error(f"Database Connection Error: {e}")
+        return False
 
 # --- 4. DATA LOADER ---
 @st.cache_data
