@@ -93,7 +93,36 @@ st.markdown(f"""
     div.stButton > button[kind="primary"] {{ background-color: #0072CE !important; border: none !important; }}
     div.stButton > button[kind="primary"] p {{ color: #ffffff !important; }}
     .stSelectbox div[data-baseweb="select"] {{ background-color: {theme_card} !important; border-radius: 12px !important; border-color: {theme_border} !important; }}
-    .full-bleed-banner {{ width: 100vw; height: 380px; position: relative; left: 50%; transform: translateX(-50%); overflow: hidden; margin-top: -3rem; margin-bottom: 35px; background-color: #000; box-shadow: 0px 10px 25px rgba(0,0,0,0.15); border-bottom: 4px solid #0072CE; }}
+    .full-bleed-banner { 
+        width: 100vw; 
+        height: 380px; 
+        position: relative; 
+        left: 50%; 
+        transform: translateX(-50%); 
+        overflow: hidden; 
+        margin-top: -3rem; 
+        margin-bottom: 35px; 
+        background-color: #000; 
+        box-shadow: 0px 15px 30px rgba(0,0,0,0.2); 
+        border-bottom: none !important;
+        mask-image: linear-gradient(to bottom, black 95%, transparent 100%);
+        -webkit-mask-image: linear-gradient(to bottom, black 95%, transparent 100%);
+    }
+
+    /* This adds a glowing "Transition Line" that blends into your background */
+    .full-bleed-banner::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        /* Using your brand blue and a soft green to match the liquid background */
+        background: linear-gradient(90deg, transparent, #0072CE, #8CC63F, transparent);
+        filter: blur(3px);
+        opacity: 0.6;
+        z-index: 10;
+    }
     .slider-track {{ display: flex; width: 500%; height: 100%; animation: slideLeft 24s infinite cubic-bezier(0.645, 0.045, 0.355, 1); }}
     .slider-track img {{ width: 20%; height: 100%; object-fit: cover; object-position: center 20%; filter: brightness(1.15) contrast(1.05); }}
     @keyframes slideLeft {{ 0%, 18% {{ transform: translateX(0); }} 25%, 43% {{ transform: translateX(-20%); }} 50%, 68% {{ transform: translateX(-40%); }} 75%, 93% {{ transform: translateX(-60%); }} 100% {{ transform: translateX(-80%); }} }}
