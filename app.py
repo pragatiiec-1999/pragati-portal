@@ -130,28 +130,24 @@ st.markdown(f"""
         transform: translateX(-50%); 
         overflow: hidden; 
         margin-top: -3rem; 
-        
-        /* Pulls the form and toggle slightly UP into the mist */
         margin-bottom: -30px; 
         background-color: transparent; 
-        
-        /* 1. Kill the hard lines and shadows completely */
         box-shadow: none !important;
         border-bottom: none !important;
         
-        /* 2. A long, smooth opacity fade */
-        mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
-        -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+        /* 1. Changed 50% to 80%: The image stays 100% solid until the very bottom */
+        mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+        -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
     }}
 
-    /* 3. The Magic Color Blender */
-    /* This tints the bottom of the photo to exactly match your current Light/Dark theme */
     .full-bleed-banner::after {{
         content: "";
         position: absolute;
         bottom: 0; left: 0; right: 0;
-        height: 180px;
-        background: linear-gradient(to bottom, transparent, {theme_fade_color});
+        
+        /* 2. Reduced height from 180px to 90px: The color tint only hugs the bottom edge */
+        height: 90px;
+        background: linear-gradient(to bottom, transparent 0%, {theme_fade_color} 100%);
         z-index: 2;
         pointer-events: none;
     }}
