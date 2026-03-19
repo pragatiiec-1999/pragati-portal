@@ -156,6 +156,34 @@ st.markdown(f"""
     </style>
 """, unsafe_allow_html=True)
 
+# --- THE BADGE NUKE (Actively destroys the Streamlit Ribbon) ---
+components.html("""
+    <script>
+        function destroyBadges() {
+            // Target the parent window where Streamlit lives
+            const doc = window.parent.document;
+            
+            // Hunt down the specific elements by class or text
+            const badges = doc.querySelectorAll('[class*="viewerBadge"], [class*="stDeployButton"]');
+            badges.forEach(badge => badge.remove());
+            
+            // Streamlit sometimes hides the ribbon in an iframe at the bottom
+            const iframes = doc.querySelectorAll('iframe');
+            iframes.forEach(iframe => {
+                if (iframe.title === "streamlit_app" || (iframe.src && iframe.src.includes('badge'))) {
+                    // Do not delete our own components, only the badge iframe
+                    if(iframe.style.height === "0px") return; 
+                    iframe.style.display = 'none';
+                }
+            });
+        }
+        
+        // Run immediately, and then keep checking every 1 second
+        destroyBadges();
+        setInterval(destroyBadges, 1000);
+    </script>
+""", height=0)
+
 # --- 2. JAVASCRIPT SCROLL & LEAF ANIMATION ---
 def trigger_leaf():
     components.html("""
