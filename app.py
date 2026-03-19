@@ -50,16 +50,15 @@ if 'dark_mode' not in st.session_state:
     st.session_state.dark_mode = False
 
 if st.session_state.dark_mode:
-    theme_bg_gradient = "linear-gradient(-45deg, #0f172a, #1e1b4b, #064e3b, #171717)"
-    theme_fade_color = "#0f172a"   # NEW: Matches the dark background
-    theme_card = "#1e293b"  
-    theme_text = "#f8fafc"      
-    theme_border = "#334155"
-    theme_bot_bubble = "#1e293b"
-    theme_user_bubble = "#0c4a6e" 
-    theme_user_border = "#075985"
-    theme_muted = "#94a3b8"
-    theme_card_rgb = "30, 41, 59"
+    theme_bg_gradient = "linear-gradient(135deg, #131314 0%, #1e1f20 100%)" # Sleek charcoal gradient
+    theme_fade_color = "#131314"   
+    theme_card = "#1e1f20"  
+    theme_text = "#e3e3e3"      
+    theme_border = "#444746"
+    theme_bot_bubble = "#1e1f20"
+    theme_user_bubble = "#333538" 
+    theme_user_border = "#444746"
+    theme_muted = "#c4c7c5"
 else:
     theme_bg_gradient = "linear-gradient(-45deg, #f8fafc, #e0f2fe, #f1f5f9, #ecfdf5)"
     theme_fade_color = "#f8fafc"   # NEW: Matches the light background
@@ -145,8 +144,14 @@ st.markdown(f"""
     .stDeployButton {{ display: none !important; }}
     [data-testid="stToolbar"] {{ display: none !important; }}
     
-    /* This wildcard specifically hunts down and hides the Cloud Viewer/Creator Badges */
-    [class^="viewerBadge"] {{ display: none !important; }}
+    /* The Ultimate Streamlit Ribbon Nuke */
+    div[class*="viewerBadge"] {{ 
+        display: none !important; 
+        opacity: 0 !important; 
+        visibility: hidden !important; 
+        pointer-events: none !important; 
+        z-index: -9999 !important; 
+    }}
     
     </style>
 """, unsafe_allow_html=True)
