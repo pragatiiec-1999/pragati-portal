@@ -1,11 +1,7 @@
-# ==========================================
-# ENTERPRISE CHATBOT LOGIC (57 QUESTIONS)
-# ==========================================
-
 questions_list = [
     {
         "id": "Q1",
-        "text": "A. कृपया अपना नाम चुने",
+        "text": "कृपया अपना नाम चुनें (यदि सूची में नहीं है, तो 'Other' चुनें)",
         "type": "dropdown",
         "category": "Teacher's Collective",
         "options": [
@@ -18,56 +14,50 @@ questions_list = [
     },
     {
         "id": "Q2",
-        "text": "B. अपना नाम लिखें",
-        "type": "text",
-        "category": "Teacher's Collective"
-    },
-    {
-        "id": "Q3",
-        "text": "1. शिक्षक संकुल बैठक की तारीख चुनें",
+        "text": "शिक्षक संकुल बैठक की तारीख चुनें",
         "type": "date",
         "category": "Teacher's Collective"
     },
     {
-        "id": "Q4",
-        "text": "2. शिक्षक संकुल बैठक का माह चुनें",
+        "id": "Q3",
+        "text": "शिक्षक संकुल बैठक का माह चुनें",
         "type": "dropdown",
         "category": "Teacher's Collective",
         "options": ["जनवरी", "फ़रवरी", "मार्च", "अप्रैल", "मई", "जून", "जुलाई", "अगस्त", "सितंबर", "अक्टूबर", "नवंबर", "दिसंबर"]
     },
     {
+        "id": "Q4",
+        "text": "केंद्र में कुल शिक्षकों की संख्या कितनी है?",
+        "type": "numeric",
+        "category": "Teacher's Collective"
+    },
+    {
         "id": "Q5",
-        "text": "3. केंद्र में कुल शिक्षकों की संख्या कितनी है?",
+        "text": "इस शिक्षक संकुल बैठक में कितने शिक्षक उपस्थित थे?",
         "type": "numeric",
         "category": "Teacher's Collective"
     },
     {
         "id": "Q6",
-        "text": "4. इस शिक्षक संकुल बैठक में कितने शिक्षक उपस्थित थे?",
+        "text": "इस शिक्षक संकुल बैठक में कितने ब्लॉक अधिकारी उपस्थित रहे ?",
         "type": "numeric",
         "category": "Teacher's Collective"
     },
     {
         "id": "Q7",
-        "text": "5. इस शिक्षक संकुल बैठक में कितने ब्लॉक अधिकारी उपस्थित रहे ?",
+        "text": "इस शिक्षक संकुल बैठक में कितने ब्लॉक अधिकारी उपस्थित रहे ?",
         "type": "numeric",
         "category": "Teacher's Collective"
     },
     {
         "id": "Q8",
-        "text": "6. इस शिक्षक संकुल बैठक में कितने ब्लॉक अधिकारी उपस्थित रहे ?",
+        "text": "इस शिक्षक संकुल बैठक में कितने Sikshak Sankul/CAC/CRC उपस्थित रहे ?",
         "type": "numeric",
         "category": "Teacher's Collective"
     },
     {
         "id": "Q9",
-        "text": "7. इस शिक्षक संकुल बैठक में कितने Sikshak Sankul/CAC/CRC उपस्थित रहे ?",
-        "type": "numeric",
-        "category": "Teacher's Collective"
-    },
-    {
-        "id": "Q10",
-        "text": "8. शिक्षक हितधारकों की अपेक्षाओं को कैसे समझतें हैं?",
+        "text": "शिक्षक हितधारकों की अपेक्षाओं को कैसे समझतें हैं?",
         "type": "dropdown",
         "category": "Teacher's Collective",
         "options": [
@@ -78,7 +68,7 @@ questions_list = [
         ]
     },
     {
-        "id": "Q11",
+        "id": "Q10",
         "text": "शिक्षक पाठ्यचर्या के लक्ष्यों को कैसे समझतें हैं?",
         "type": "dropdown",
         "category": "Teacher's Collective",
@@ -91,7 +81,7 @@ questions_list = [
         ]
     },
     {
-        "id": "Q12",
+        "id": "Q11",
         "text": "क्या शिक्षक बच्चों के व्यवहार को निष्पक्षता के साथ देखते हैं?",
         "type": "dropdown",
         "category": "Teacher's Collective",
@@ -105,7 +95,7 @@ questions_list = [
         ]
     },
     {
-        "id": "Q13",
+        "id": "Q12",
         "text": "नए विचारों को अपनाने के प्रति खुलापन और मंथन कैसे होता है ?",
         "type": "dropdown",
         "category": "Teacher's Collective",
@@ -121,7 +111,7 @@ questions_list = [
         ]
     },
     {
-        "id": "Q14",
+        "id": "Q13",
         "text": "मासिक योजना में क्या क्या शामिल हैं?",
         "type": "dropdown",
         "category": "Teacher's Collective",
@@ -133,7 +123,7 @@ questions_list = [
         ]
     },
     {
-        "id": "Q15",
+        "id": "Q14",
         "text": "मासिक योजना में LO और गतिविधियों निर्किधारण कैसे किया गया हैं?",
         "type": "dropdown",
         "category": "Teacher's Collective",
@@ -141,11 +131,11 @@ questions_list = [
             "राज्य द्वारा प्रदान की गई सूची के LOs पर चर्चा",
             "महीने के हर कक्षा के पाठ और हर पाठ के LO को राज्य की सूची से कॉपी किया गया",
             "प्रत्येक विषय +कक्षा के LOs, LOs संबंधित गतिविधियां, थीम की पहचान, कॉन्सेप्ट मैप",
-            "नए LOs की पहचान, उनके लिए गतविधिया, माइक्रो LOs बनाना"
+            "नए LOs की पहचान, refined गतिविधिया, माइक्रो LOs बनाना"
         ]
     },
     {
-        "id": "Q16",
+        "id": "Q15",
         "text": "योजना में गतिविधियाँ कहाँ से ली गई हैं?वे किस प्रकार की हैं?",
         "type": "dropdown",
         "category": "Teacher's Collective",
@@ -159,7 +149,7 @@ questions_list = [
         ]
     },
     {
-        "id": "Q17",
+        "id": "Q16",
         "text": "योजना में किन सीखने के संसाधनों को चिह्नित किया गया हैं?",
         "type": "dropdown",
         "category": "Teacher's Collective",
@@ -171,7 +161,7 @@ questions_list = [
         ]
     },
     {
-        "id": "Q18",
+        "id": "Q17",
         "text": "बैठक में कितने विद्यालय और शिक्षक उपस्थित थे?",
         "type": "dropdown",
         "category": "Teacher's Collective",
@@ -185,21 +175,21 @@ questions_list = [
         ]
     },
     {
-        "id": "Q19",
+        "id": "Q18",
         "text": "बैठक में कितने प्रतिशत शिक्षक पिछली बैठक में भी उपस्थित थे?",
         "type": "dropdown",
         "category": "Teacher's Collective",
         "options": ["50% से कम शिक्षक", "50%-74% शिक्षक", "75%-89% शिक्षक", "91% + शिक्षक"]
     },
     {
-        "id": "Q20",
+        "id": "Q19",
         "text": "कितने शिक्षकों ने कितने सत्रों की चर्चा में भाग लिया?",
         "type": "dropdown",
         "category": "Teacher's Collective",
         "options": ["1-2 शिक्षक", "हर सत्र में 6-10 शिक्षक", "हर सत्र में 70%-80% शिक्षक", "हर सत्र में 80%+ शिक्षक"]
     },
     {
-        "id": "Q21",
+        "id": "Q20",
         "text": "सत्रों का संचालन किसने किया?",
         "type": "dropdown",
         "category": "Teacher's Collective",
@@ -214,7 +204,7 @@ questions_list = [
         ]
     },
     {
-        "id": "Q22",
+        "id": "Q21",
         "text": "बैठक में ब्लॉक/ज़िला के उपस्थिति और भागीदारी कैसी रही ?",
         "type": "dropdown",
         "category": "Teacher's Collective",
@@ -229,14 +219,14 @@ questions_list = [
         ]
     },
     {
-        "id": "Q23",
+        "id": "Q22",
         "text": "कितने शिक्षकों ने शेयरिंग में साक्ष्य तथा डेटा का उपयोग किया?",
         "type": "dropdown",
         "category": "Teacher's Collective",
         "options": ["50% से कम", "लगभग 50%", "50%-80%", "80%-100%"]
     },
     {
-        "id": "Q24",
+        "id": "Q23",
         "text": "शिक्षकों की शेयरिंग पर उपस्थित लोगो में से कितने लोगो ने फीडबैक दिया?",
         "type": "dropdown",
         "category": "Teacher's Collective",
@@ -251,7 +241,7 @@ questions_list = [
         ]
     },
     {
-        "id": "Q25",
+        "id": "Q24",
         "text": "फीडबैक की गुणवत्ता कैसी थी?",
         "type": "dropdown",
         "category": "Teacher's Collective",
@@ -267,7 +257,7 @@ questions_list = [
         ]
     },
     {
-        "id": "Q26",
+        "id": "Q25",
         "text": "क्या बैठक की चर्चा समाधान केंद्रित थी?",
         "type": "dropdown",
         "category": "Teacher's Collective",
@@ -282,7 +272,7 @@ questions_list = [
         ]
     },
     {
-        "id": "Q27",
+        "id": "Q26",
         "text": "CRC द्वारा बैठक आयोजन हेतु एजेंडा और अन्य तैयारियों का स्तर कैसा रहा ?",
         "type": "dropdown",
         "category": "Teacher's Collective",
@@ -298,7 +288,7 @@ questions_list = [
         ]
     },
     {
-        "id": "Q28",
+        "id": "Q27",
         "text": "CRC की सारे सत्रों में उपस्थिति और नेतृत्व लेने का स्तर कैसा रहा ?",
         "type": "dropdown",
         "category": "Teacher's Collective",
@@ -312,7 +302,7 @@ questions_list = [
         ]
     },
     {
-        "id": "Q29",
+        "id": "Q28",
         "text": "CRC ने अकादमिक योजना बनाने में कैसा नेतृत्व लिया?",
         "type": "dropdown",
         "category": "Teacher's Collective",
@@ -329,7 +319,7 @@ questions_list = [
         ]
     },
     {
-        "id": "Q30",
+        "id": "Q29",
         "text": "बैठक आयोजन का पत्र किसके द्वारा और कब जारी किया गया?",
         "type": "dropdown",
         "category": "Teacher's Collective",
@@ -342,7 +332,7 @@ questions_list = [
         ]
     },
     {
-        "id": "Q31",
+        "id": "Q30",
         "text": "बैठक में सारी मूलभूत सुविधाओं की व्यवस्था कैसी रही ?",
         "type": "dropdown",
         "category": "Teacher's Collective",
@@ -357,7 +347,7 @@ questions_list = [
         ]
     },
     {
-        "id": "Q32",
+        "id": "Q31",
         "text": "बैठक की कार्यवाही का दस्तावेजीकरण कैसा रहा ?",
         "type": "dropdown",
         "category": "Teacher's Collective",
@@ -371,7 +361,7 @@ questions_list = [
         ]
     },
     {
-        "id": "Q33",
+        "id": "Q32",
         "text": "बैठक कब-कब आयोजित की जाती है ?",
         "type": "dropdown",
         "category": "Teacher's Collective",
@@ -383,7 +373,7 @@ questions_list = [
         ]
     },
     {
-        "id": "Q34",
+        "id": "Q33",
         "text": "शिक्षक अभिवावकों से कब-कब संवाद करते हैं और उनके फीडबैक को कैसे अपनाते हैं?",
         "type": "dropdown",
         "category": "Classroom Observation",
@@ -396,7 +386,7 @@ questions_list = [
         ]
     },
     {
-        "id": "Q35",
+        "id": "Q34",
         "text": "मासिक स्कूल प्रबंधन समिति की बैठक में शिक्षक की भागीदारी का स्तर कैसा है ?",
         "type": "dropdown",
         "category": "Classroom Observation",
@@ -408,7 +398,7 @@ questions_list = [
         ]
     },
     {
-        "id": "Q36",
+        "id": "Q35",
         "text": "शिक्षक द्वारा समुदाय की भागीदारी बढ़ाने के लिए प्रयास का स्तर कैसा है ?",
         "type": "dropdown",
         "category": "Classroom Observation",
@@ -422,7 +412,7 @@ questions_list = [
         ]
     },
     {
-        "id": "Q37",
+        "id": "Q36",
         "text": "कक्षा योजना बनाने के लिए किन प्रारूपों और सूत्रो का उपयोग किया जा रहा हैं?",
         "type": "dropdown",
         "category": "Classroom Observation",
@@ -434,7 +424,7 @@ questions_list = [
         ]
     },
     {
-        "id": "Q38",
+        "id": "Q37",
         "text": "बनायी गई योजना में LO को शामिल किया जाना और उनका स्रोत कैसा है ?",
         "type": "dropdown",
         "category": "Classroom Observation",
@@ -447,7 +437,7 @@ questions_list = [
         ]
     },
     {
-        "id": "Q39",
+        "id": "Q38",
         "text": "योजना में शामिल गतिविधियों की स्थिति कैसी है ?",
         "type": "dropdown",
         "category": "Classroom Observation",
@@ -459,7 +449,7 @@ questions_list = [
         ]
     },
     {
-        "id": "Q40",
+        "id": "Q39",
         "text": "शिक्षक, किस प्रकार की बैठने की व्यवस्था का उपयोग कर रही/रहे हैं?",
         "type": "dropdown",
         "category": "Classroom Observation",
@@ -473,7 +463,7 @@ questions_list = [
         ]
     },
     {
-        "id": "Q41",
+        "id": "Q40",
         "text": "शिक्षक द्वारा संसाधनों के उपयोग और LO से उनके जुड़ाव का स्तर कैसा है ?",
         "type": "dropdown",
         "category": "Classroom Observation",
@@ -485,7 +475,7 @@ questions_list = [
         ]
     },
     {
-        "id": "Q42",
+        "id": "Q41",
         "text": "शिक्षक बच्चों को चर्चा, संवाद और गतिविधियों में भागीदारी तथा नेतृत्व करने के अवसर कैसे प्रदान कर रही/रहे है?",
         "type": "dropdown",
         "category": "Classroom Observation",
@@ -501,7 +491,7 @@ questions_list = [
         ]
     },
     {
-        "id": "Q43",
+        "id": "Q42",
         "text": "शिक्षक को पाठ्यपुस्तक के विषयवस्तु में अवधारणाओं और आवश्यक जानकारी की कितनी गहरी समझ हैं?",
         "type": "dropdown",
         "category": "Classroom Observation",
@@ -514,7 +504,7 @@ questions_list = [
         ]
     },
     {
-        "id": "Q44",
+        "id": "Q43",
         "text": "शिक्षक सीख सामग्री के प्रस्तुतीकरण (फ़ेसिलिटेशन) के दौरान किन विधियों का प्रयोग करते हैं ?",
         "type": "dropdown",
         "category": "Classroom Observation",
@@ -528,7 +518,7 @@ questions_list = [
         ]
     },
     {
-        "id": "Q45",
+        "id": "Q44",
         "text": "शिक्षक सीख सामग्री के प्रस्तुतीकरण (फ़ेसिलिटेशन) के दौरान किस प्रकार से बच्चों का रचनात्मत आंकलन करते हैं?",
         "type": "dropdown",
         "category": "Classroom Observation",
@@ -541,7 +531,7 @@ questions_list = [
         ]
     },
     {
-        "id": "Q46",
+        "id": "Q45",
         "text": "शिक्षक बच्चों की आवधारात्मक समझ का आंकलन कैसे करते हैं?",
         "type": "dropdown",
         "category": "Classroom Observation",
@@ -554,7 +544,7 @@ questions_list = [
         ]
     },
     {
-        "id": "Q47",
+        "id": "Q46",
         "text": "शिक्षक बच्चों के कौशल विकास का आंकलन कैसे करते हैं?",
         "type": "dropdown",
         "category": "Classroom Observation",
@@ -567,7 +557,7 @@ questions_list = [
         ]
     },
     {
-        "id": "Q48",
+        "id": "Q47",
         "text": "शिक्षक फीडबैक के लिए किन प्रणालियों का उपयोग करते हैं? उनका फीडबैक किस प्रकार का होता हैं?",
         "type": "dropdown",
         "category": "Classroom Observation",
@@ -582,7 +572,7 @@ questions_list = [
         ]
     },
     {
-        "id": "Q49",
+        "id": "Q48",
         "text": "शिक्षक अपनी फाइल में किस प्रारूप में कक्षा योजना और बच्चों का अवलोकन दर्ज करते हैं?",
         "type": "dropdown",
         "category": "Classroom Observation",
@@ -596,7 +586,7 @@ questions_list = [
         ]
     },
     {
-        "id": "Q50",
+        "id": "Q49",
         "text": "समूह कार्य का दस्तावेज़ कहाँ और कैसे उपलब्ध हैं ?",
         "type": "dropdown",
         "category": "Classroom Observation",
@@ -608,7 +598,7 @@ questions_list = [
         ]
     },
     {
-        "id": "Q51",
+        "id": "Q50",
         "text": "बच्चों के कार्य और प्रगति कहाँ और किस तरह से उपलब्ध है?",
         "type": "dropdown",
         "category": "Classroom Observation",
@@ -622,7 +612,7 @@ questions_list = [
         ]
     },
     {
-        "id": "Q52",
+        "id": "Q51",
         "text": "क्या शिक्षक विषय से संबंधित महत्वपूर्ण विचारों को समझतें हैं? वह विषय को पढ़ने के लिए किस प्रकार की गतिविधियों का उपयोग करतें हैं?",
         "type": "dropdown",
         "category": "Classroom Observation",
@@ -634,7 +624,7 @@ questions_list = [
         ]
     },
     {
-        "id": "Q53",
+        "id": "Q52",
         "text": "क्या शिक्षक को सीखने की विभिन्न शैलियाँ के बारें में जानकारी हैं? वे उससे सीख सामग्री का प्रस्तुतीकरण में कैसे शामिल करतें हैं?",
         "type": "dropdown",
         "category": "Classroom Observation",
@@ -648,7 +638,7 @@ questions_list = [
         ]
     },
     {
-        "id": "Q54",
+        "id": "Q53",
         "text": "शिक्षक हितधारकों की अपेक्षाओं को कैसे समझतें हैं?",
         "type": "dropdown",
         "category": "Classroom Observation",
@@ -660,7 +650,7 @@ questions_list = [
         ]
     },
     {
-        "id": "Q55",
+        "id": "Q54",
         "text": "शिक्षक पाठ्यचर्या के लक्ष्यों को कैसे समझतें हैं?",
         "type": "dropdown",
         "category": "Classroom Observation",
@@ -673,7 +663,7 @@ questions_list = [
         ]
     },
     {
-        "id": "Q56",
+        "id": "Q55",
         "text": "क्या शिक्षक बच्चों के व्यवहार को निष्पक्षता के साथ देखते हैं?",
         "type": "dropdown",
         "category": "Classroom Observation",
@@ -687,7 +677,7 @@ questions_list = [
         ]
     },
     {
-        "id": "Q57",
+        "id": "Q56",
         "text": "क्या शिक्षक में सीखने की ओर खुलापन हैं? वे किस तरह की विधियों का उपयोग करना सही समझतें हैं?",
         "type": "dropdown",
         "category": "Classroom Observation",

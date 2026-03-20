@@ -64,60 +64,63 @@ else:
 # ==========================================
 # EXACT CSS FROM YOUR ORIGINAL CODE + PALETTE SCROLL FIX
 # ==========================================
+# ==========================================
+# FINAL OPTIMIZED CSS - HEROICON READY
+# ==========================================
 st.markdown(f"""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
-    @keyframes gradientBG {{ 0% {{ background-position: 0% 50%; }} 50% {{ background-position: 100% 50%; }} 100% {{ background-position: 0% 50%; }} }}
-    .stApp {{ background: {theme_bg_gradient} !important; background-size: 300% 300% !important; animation: gradientBG 18s ease-in-out infinite !important; font-family: 'Inter', sans-serif; color: {theme_text} !important; }}
-    @keyframes floatLetters {{ 0% {{ transform: translateY(5vh) translateX(0px) rotate(0deg); opacity: 0; }} 10% {{ opacity: 0.04; }} 90% {{ opacity: 0.04; }} 100% {{ transform: translateY(-20vh) translateX(-20px) rotate(5deg); opacity: 0; }} }}
-    .stApp::before {{ content: 'A अ 1 B आ 2 C इ 3 D ई 4 E उ 5 F ऊ 6 G ऋ 7 H ए 8 I ऐ 9 J ओ 0 K औ L क M ख N ग O घ P ङ Q च R छ S ज T झ U ञ V ट W ठ X ड Y ढ Z ण 0 त 1 थ 2 द 3 ध 4 न 5 प 6 फ 7 ब 8 भ 9 म A य B र C ल D व E श F ष G स H ह I क्ष J त्र K ज्ञ'; position: fixed; top: -10%; left: -10%; width: 120%; height: 120%; font-size: 42px; font-weight: 600; word-spacing: 80px; line-height: 130px; text-align: justify; color: {theme_text}; opacity: 0.04; pointer-events: none; z-index: 0; overflow: hidden; display: block; animation: floatLetters 35s linear infinite; }}
-    .block-container {{ position: relative; z-index: 10; padding-top: 130px !important; padding-bottom: 100px !important; max-width: 1200px; }} 
-    .true-fixed-header {{ position: fixed !important; top: 0 !important; left: 0 !important; right: 0 !important; background: {theme_card} !important; z-index: 999999 !important; border-bottom: 1px solid {theme_border} !important; border-top: 5px solid #0072CE !important; padding: 10px 10% 15px 10% !important; box-shadow: 0 4px 15px rgba(0,0,0,0.03) !important; }}
     
+    /* ANIMATIONS */
+    @keyframes gradientBG {{ 0% {{ background-position: 0% 50%; }} 50% {{ background-position: 100% 50%; }} 100% {{ background-position: 0% 50%; }} }}
+    @keyframes floatLetters {{ 0% {{ transform: translateY(5vh) translateX(0px) rotate(0deg); opacity: 0; }} 10% {{ opacity: 0.04; }} 90% {{ opacity: 0.04; }} 100% {{ transform: translateY(-20vh) translateX(-20px) rotate(5deg); opacity: 0; }} }}
+    
+    /* CORE APP STYLING */
+    .stApp {{ 
+        background: {theme_bg_gradient} !important; 
+        background-size: 300% 300% !important; 
+        animation: gradientBG 18s ease-in-out infinite !important; 
+        font-family: 'Inter', sans-serif; 
+        color: {theme_text} !important; 
+    }}
+    
+    .stApp::before {{ 
+        content: 'A अ 1 B आ 2 C इ 3 D ई 4 E उ 5 F ऊ 6 G ऋ 7 H ए 8 I ऐ 9 J ओ 0 K औ L क M ख N ग O घ P ङ Q च R छ S ज T झ U ञ V ट W ठ X ड Y ढ Z ण 0 त 1 थ 2 द 3 ध 4 न 5 प 6 फ 7 ब 8 भ 9 म A य B र C ल D व E श F ष G स H ह I क्ष J त्र K ज्ञ'; 
+        position: fixed; top: -10%; left: -10%; width: 120%; height: 120%; 
+        font-size: 42px; font-weight: 600; word-spacing: 80px; line-height: 130px; 
+        text-align: justify; color: {theme_text}; opacity: 0.04; pointer-events: none; z-index: 0; animation: floatLetters 35s linear infinite; 
+    }}
+
+    /* CONTAINER SPACING (Reduced top-padding since Header is gone) */
+    .block-container {{ 
+        position: relative; 
+        z-index: 10; 
+        padding-top: 60px !important; 
+        padding-bottom: 100px !important; 
+        max-width: 1200px; 
+    }} 
+
+    /* PROFESSIONAL BUTTONS */
     div.stButton > button {{ border-radius: 25px !important; border: 1.5px solid #0072CE !important; background-color: transparent !important; width: 100% !important; transition: all 0.3s ease !important; }}
     div.stButton > button p {{ color: #0072CE !important; font-weight: 600 !important; }}
     div.stButton > button:hover {{ background-color: #0072CE !important; transform: translateY(-2px) !important; }}
     div.stButton > button:hover p {{ color: #ffffff !important; }}
     div.stButton > button[kind="primary"] {{ background-color: #0072CE !important; border: none !important; }}
     div.stButton > button[kind="primary"] p {{ color: #ffffff !important; }}
-    
+
+    /* INPUTS & SELECTBOXES */
     .stSelectbox div[data-baseweb="select"] {{ background-color: {theme_card} !important; border-radius: 12px !important; border-color: {theme_border} !important; }}
-    label p, label span, div[data-testid="stWidgetLabel"] p, div[data-testid="stWidgetLabel"] span, div[data-testid="stToggle"] p, div[data-testid="stSelectbox"] p, div[data-testid="stSelectbox"] label {{ color: {theme_text} !important; transition: color 0.4s ease !important; }}
-    div[data-baseweb="select"] span {{ color: {theme_text} !important; }}
-    ul[data-baseweb="menu"] {{ background-color: {theme_card} !important; border: 1px solid {theme_border} !important; }}
-    ul[data-baseweb="menu"] li {{ color: {theme_text} !important; }}
+    label p, label span, div[data-testid="stWidgetLabel"] p {{ color: {theme_text} !important; }}
+    div[data-baseweb="input"] input, div[data-baseweb="base-input"] textarea {{ color: {theme_text} !important; background-color: transparent !important; }}
 
-    [data-testid="stBottom"] {{ background-color: {theme_fade_color} !important; }}
-    [data-testid="stBottom"] > div {{ background-color: {theme_fade_color} !important; }}
-
-    div[data-testid="stDateInput"] div[data-baseweb="input"], 
-    div[data-testid="stTextInput"] div[data-baseweb="input"],
-    div[data-testid="stNumberInput"] div[data-baseweb="input"],
-    div[data-testid="stTextArea"] div[data-baseweb="base-input"] {{ background-color: {theme_card} !important; border: 1px solid {theme_border} !important; }}
-    div[data-baseweb="base-input"] {{ background-color: transparent !important; }}
-    div[data-baseweb="input"] input, div[data-baseweb="base-input"] textarea {{ color: {theme_text} !important; -webkit-text-fill-color: {theme_text} !important; caret-color: {theme_text} !important; background-color: transparent !important; }}
-    div[data-testid="stDateInput"] label p {{ color: {theme_text} !important; }}
-    div[data-testid="stDateInput"] svg {{ fill: {theme_text} !important; }}
-    
-    .stSelectbox div[data-baseweb="select"] {{ background-color: {theme_card} !important; border-radius: 10px !important; border-color: {theme_border} !important; }}
-    .stSelectbox div[data-baseweb="select"] > div {{ background-color: transparent !important; }} 
-    .stSelectbox div[data-baseweb="select"] * {{ color: {theme_text} !important; }}
-    .stSelectbox div[data-baseweb="select"] svg {{ fill: {theme_text} !important; }}
-    
-    div[data-baseweb="popover"] > div {{ background-color: {theme_card} !important; border: 1px solid {theme_border} !important; }}
-    ul[data-baseweb="menu"] {{ background-color: {theme_card} !important; }}
-    ul[data-baseweb="menu"] li {{ color: {theme_text} !important; background-color: {theme_card} !important; }}
-    ul[data-baseweb="menu"] li:hover {{ background-color: {theme_border} !important; }}
-    
-    .full-bleed-banner {{ width: 100vw; height: 380px; position: relative; left: 50%; transform: translateX(-50%); overflow: hidden; margin-top: -3rem; margin-bottom: -50px; background-color: transparent; mask-image: linear-gradient(to bottom, black 60%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%); }}
-    .full-bleed-banner::after {{ content: ""; position: absolute; bottom: 0; left: 0; right: 0; height: 160px; background: linear-gradient(to bottom, transparent 0%, {theme_fade_color} 100%); z-index: 2; pointer-events: none; }}
+    /* BANNER SYSTEM */
+    .full-bleed-banner {{ width: 100vw; height: 380px; position: relative; left: 50%; transform: translateX(-50%); overflow: hidden; margin-top: -3rem; margin-bottom: -50px; mask-image: linear-gradient(to bottom, black 60%, transparent 100%); -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%); }}
     .slider-track {{ display: flex; width: 500%; height: 100%; animation: slideLeft 24s infinite cubic-bezier(0.645, 0.045, 0.355, 1); }}
-    .slider-track img {{ width: 20%; height: 100%; object-fit: cover; object-position: center 20%; filter: brightness(1.15) contrast(1.05); }}
+    .slider-track img {{ width: 20%; height: 100%; object-fit: cover; object-position: center 20%; }}
     @keyframes slideLeft {{ 0%, 18% {{ transform: translateX(0); }} 25%, 43% {{ transform: translateX(-20%); }} 50%, 68% {{ transform: translateX(-40%); }} 75%, 93% {{ transform: translateX(-60%); }} 100% {{ transform: translateX(-80%); }} }}
-    .success-card {{ background: {theme_card}; padding: 40px; border-radius: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid {theme_border}; margin-top: 50px; }}
-    .banner-logo {{ height: 130px; filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.4)); transition: all 0.3s ease; }}
+    .banner-logo {{ height: 130px; filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.4)); }}
 
-    /* --- THE PALETTE SCROLL FIX (STOPS JUMPING) --- */
+    /* --- THE PALETTE GRID (JEE STYLE) --- */
     .palette-box {{
         background: {theme_card};
         padding: 15px;
@@ -126,28 +129,60 @@ st.markdown(f"""
         max-height: 75vh;
         overflow-y: auto;
     }}
-    .palette-box::-webkit-scrollbar {{ width: 6px; }}
-    .palette-box::-webkit-scrollbar-track {{ background: transparent; }}
-    .palette-box::-webkit-scrollbar-thumb {{ background: {theme_border}; border-radius: 3px; }}
 
-    @media screen and (max-width: 768px) {{
-        .full-bleed-banner {{ height: 50vw !important; min-height: 200px !important; margin-bottom: -20px !important; }}
-        .full-bleed-banner::after {{ height: 70px !important; }}
-        .banner-logo {{ height: 45px !important; margin-top: -5px !important; }}
-        .block-container {{ padding-top: 80px !important; }}
-        .palette-box {{ max-height: 40vh; margin-top: 20px; }}
+    .palette-grid {{
+        display: grid !important;
+        grid-template-columns: repeat(5, 1fr) !important;
+        gap: 10px !important;
+        padding: 10px 0 !important;
+    }}
+
+    .palette-grid div[data-testid="stButton"] {{ width: 100% !important; }}
+    .palette-grid button {{ height: 42px !important; padding: 0 !important; font-size: 0.9rem !important; }}
+
+    /* POPOVER LABEL FIX (DARK & BOLD) */
+    div[data-testid="stPopover"] > div:first-child p {{
+        color: #000000 !important;
+        font-weight: 700 !important;
+        font-size: 1rem !important;
     }}
     
-    #MainMenu {{ visibility: hidden !important; }}
-    header {{ visibility: hidden !important; }}
-    footer {{ visibility: hidden !important; }}
-    .stDeployButton {{ display: none !important; }}
-    [data-testid="stToolbar"] {{ display: none !important; }}
-    [data-testid="stStatusWidget"] {{ display: none !important; visibility: hidden !important; }} 
-    div[class*="viewerBadge"] {{ display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; z-index: -9999 !important; }}
+    div[data-baseweb="popover"] > div {{ background-color: {theme_card} !important; border: 1px solid {theme_border} !important; }}
+
+    /* NUKE GHOST CONTAINERS & BARS */
+    [data-testid="stVerticalBlock"] > div:empty {{ display: none !important; }}
+    hr {{ margin: 10px 0 !important; opacity: 0.2; }}
+
+    /* FORCE 3-COLUMN GRID ON MOBILE (BETTER READABILITY) */
+    @media screen and (max-width: 768px) {{
+        .palette-grid {{
+            grid-template-columns: repeat(3, 1fr) !important; /* Changed from 5 to 3 for mobile */
+            gap: 12px !important;
+        }}
+
+        /* NUKE THE SMALL BLANK BOX ABOVE PALETTE */
+        [data-testid="column"]:empty, 
+        [data-testid="stHorizontalBlock"]:empty,
+        div[class*="st-key-temp_q1_sel"] + div {{
+            display: none !important;
+            height: 0px !important;
+            margin: 0px !important;
+            padding: 0px !important;
+        }}
+        
+        /* DARK TEXT FOR POPOVER LABELS */
+        div[data-testid="stPopover"] p {{
+            color: #000000 !important;
+            font-weight: 700 !important;
+        }}
+    }}
+
+    /* Global Fix to hide any empty vertical space */
+    [data-testid="stVerticalBlock"] > div:empty {{
+        display: none !important;
+    }}
     </style>
 """, unsafe_allow_html=True)
-
 # --- THE BADGE NUKE ---
 components.html("""
     <script>
@@ -212,20 +247,29 @@ def save_to_google_sheets(rm_data):
         st.error(f"Database Connection Error: {e}")
         return False
 
-# --- 4. DATA LOADER ---
 @st.cache_data(show_spinner=False)
 def load_rm_data():
-    file_name = "Process Tracker-2026-27.xlsx - RM.csv"
+    # This ensures it finds the file on your local computer
+    base_path = os.path.dirname(__file__)
+    file_name = os.path.join(base_path, "Process Tracker-2026-27.xlsx - RM.csv")
+    
     try:
+        # Restoring your working Excel-based logic
         xl = pd.ExcelFile(file_name, engine='openpyxl')
         for sheet_name in xl.sheet_names:
             df = xl.parse(sheet_name)
+            # Standardizing column names
             df.columns = [str(col).strip().replace('\ufeff', '') for col in df.columns]
-            if 'State' in df.columns: 
+            
+            # This is the line that makes the Search box work
+            if 'UDISE Code' in df.columns: 
                 df['School_Display'] = df['UDISE Code'].astype(str) + " - " + df['School Name'].astype(str)
                 return df
-    except Exception: pass 
-    return pd.DataFrame() 
+    except Exception as e:
+        # Temporarily show this if it still fails so we can see why
+        # st.error(f"Loader error: {e}") 
+        pass 
+    return pd.DataFrame()
 
 # --- 5. STATE MANAGEMENT & CUSTOM LOADER ---
 if 'current_page' not in st.session_state: st.session_state.current_page = 'RM_PAGE'; scroll_to_top() 
@@ -291,22 +335,22 @@ if st.session_state.current_page == 'RM_PAGE':
     </div>"""
     st.markdown(html_banner, unsafe_allow_html=True)
 
-    colA, colB = st.columns([0.8, 0.2])
-    with colB:
+    # This keeps the toggle aligned to the right without creating an empty 0.8 width container above your questions
+    _, toggle_col = st.columns([0.8, 0.2])
+    with toggle_col:
         st.toggle("Dark Theme", key="dark_mode")
 
     with st.container(border=True):
         st.subheader("1. Identify School & Observer")
         if not df_rm.empty:
             
-            search_col, _ = st.columns([0.7, 0.3])
-            with search_col:
-                selected_school_raw = st.selectbox(
-                    "Search by UDISE Code or School Name", 
-                    df_rm['School_Display'].dropna().unique().tolist(), 
-                    index=None, 
-                    placeholder="Type UDISE or School Name..."
-                )
+            # Removed the search_col wrapper to fix the NameError and ghost container
+            selected_school_raw = st.selectbox(
+                "Search by UDISE Code or School Name", 
+                df_rm['School_Display'].dropna().unique().tolist(), 
+                index=None, 
+                placeholder="Type UDISE or School Name..."
+            )
                 
             if selected_school_raw:
                 s_udise = selected_school_raw.split(" - ")[0].strip()
@@ -403,37 +447,53 @@ elif st.session_state.current_page == 'PORTAL_PAGE':
             </div>
         """, unsafe_allow_html=True)
 
-        colA, colB = st.columns([0.8, 0.2])
-        with colB:
-            st.toggle("Dark Theme", key="dark_mode")
+        st.toggle("Dark Theme", key="dark_mode")
 
         left_col, right_col = st.columns([0.65, 0.35])
 
         with right_col:
             # THE SCROLL JUMP FIX: Wrap the palette in the scrollable CSS container
             st.markdown("<div class='palette-box'>", unsafe_allow_html=True)
-            st.markdown("### Question Palette")
-            st.caption("🟩 Answered &nbsp;&nbsp;|&nbsp;&nbsp; ⬜ Unanswered")
             
+            st.markdown(f"""
+    <div style='display: flex; align-items: center; margin-bottom: 10px;'>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="#0072CE" style="width: 24px; height: 24px; margin-right: 10px;">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+        </svg>
+        <h3 style='margin:0; color: {theme_text};'>Question Palette</h3>
+    </div>
+""", unsafe_allow_html=True)
+            st.caption("🟩 Answered | ⬜ Unanswered")
+            
+            # Function to make text bold using Unicode (Workaround for st.popover)
+            def make_bold(text):
+                bold_map = str.maketrans(
+                    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
+                    "𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭𝗮𝗯𝗰𝗱𝗲𝗳𝗴𝗵𝗶𝗷𝗸𝗹𝗺𝗻𝗼𝗽𝗾𝗿𝘀𝘁𝘂𝘃𝘄𝘅𝘆𝘇𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵"
+                )
+                return text.translate(bold_map)
+
             for category in ["Teacher's Collective", "Classroom Observation"]:
-                st.markdown(f"<span style='font-size: 0.85rem; font-weight: 600; color:{theme_muted};'>{category}</span>", unsafe_allow_html=True)
-                cat_questions = [q for q in questions_list if q.get("category") == category]
+                cat_qs = [q for q in questions_list if q.get("category") == category]
+                ans_cat = sum(1 for q in cat_qs if st.session_state.answers_dict.get(q['id']) not in [None, ""])
                 
-                cols = st.columns(5)
-                for c_idx, q in enumerate(cat_questions):
-                    global_idx = questions_list.index(q)
-                    q_num_display = str(global_idx + 1)
+                # Using 📄 Unicode icon for the label
+                clean_label = f"📄 {category} ({ans_cat}/{len(cat_qs)})"
+                
+                with st.popover(clean_label, use_container_width=True):
+                    st.markdown("<div class='palette-grid'>", unsafe_allow_html=True)
                     
-                    ans_key = f"ans_{q['id']}"
-                    is_answered = st.session_state.answers_dict.get(q['id']) not in [None, ""]
-                    btn_type = "primary" if is_answered else "secondary"
-                    
-                    with cols[c_idx % 5]:
-                        if st.button(q_num_display, key=f"pal_{global_idx}", type=btn_type):
-                            st.session_state.active_q_idx = global_idx
+                    for q in cat_qs:
+                        g_idx = questions_list.index(q)
+                        is_ans = st.session_state.answers_dict.get(q['id']) not in [None, ""]
+                        
+                        if st.button(str(g_idx+1), key=f"pal_{g_idx}", type="primary" if is_ans else "secondary", use_container_width=True):
+                            st.session_state.active_q_idx = g_idx
                             scroll_to_top()
                             st.rerun()
-                st.write("") 
+                            
+                    st.markdown("</div>", unsafe_allow_html=True)
+            st.write("")
 
             st.divider()
             if st.button("FINAL SUBMIT", type="primary", icon=":material/cloud_upload:"):
@@ -466,13 +526,25 @@ elif st.session_state.current_page == 'PORTAL_PAGE':
                 def update_answer(q_id):
                     st.session_state.answers_dict[q_id] = st.session_state[f"ans_{q_id}"]
                 
-                if active_q["type"] == "dropdown":
+                # MERGED Q1 LOGIC
+                if active_q["id"] == "Q1":
+                    opts = active_q["options"]
+                    is_custom = saved_val not in opts and saved_val not in [None, ""]
+                    idx = opts.index("Other") if is_custom else (opts.index(saved_val) if saved_val in opts else None)
+                    
+                    sel = st.selectbox("Select your name:", opts, index=idx, key="temp_q1_sel")
+                    
+                    if sel == "Other":
+                        st.write("---")
+                        custom_val = saved_val if is_custom else ""
+                        st.text_input("Type your name:", value=custom_val, key=ans_key, on_change=update_answer, args=(active_q['id'],))
+                    else:
+                        st.session_state.answers_dict["Q1"] = sel
+
+                elif active_q["type"] == "dropdown":
                     options = active_q["options"]
                     idx = options.index(saved_val) if saved_val in options else None
-                    if len(options) <= 5:
-                        st.radio("Select an option:", options, index=idx, key=ans_key, on_change=update_answer, args=(active_q['id'],))
-                    else:
-                        st.selectbox("Select an option:", options, index=idx, placeholder="Choose an option...", key=ans_key, on_change=update_answer, args=(active_q['id'],))
+                    st.selectbox("Select an option:", options, index=idx, key=ans_key, on_change=update_answer, args=(active_q['id'],))
                         
                 elif active_q["type"] == "numeric":
                     val = float(saved_val) if saved_val not in [None, ""] else None
@@ -491,12 +563,12 @@ elif st.session_state.current_page == 'PORTAL_PAGE':
             nav_col1, nav_col2, nav_col3 = st.columns([0.3, 0.4, 0.3])
             with nav_col1:
                 if st.session_state.active_q_idx > 0:
-                    if st.button("Previous", icon=":material/arrow_back:"):
+                    if st.button("Back", icon=":material/arrow_back:"):
                         st.session_state.active_q_idx -= 1
                         scroll_to_top()
                         st.rerun()
             with nav_col3:
-                if st.session_state.active_q_idx < len(questions_list) - 1:
+                if st.session_state.active_q_idx < total_q - 1:
                     if st.button("Next", type="primary", icon=":material/arrow_forward:"):
                         st.session_state.active_q_idx += 1
                         scroll_to_top()
