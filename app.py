@@ -113,10 +113,15 @@ st.markdown(f"""
         border: 1px solid {theme_border} !important; 
     }}
     div[data-baseweb="base-input"] {{ background-color: transparent !important; }}
-    div[data-baseweb="input"] input {{ color: {theme_text} !important; -webkit-text-fill-color: {theme_text} !important; caret-color: {theme_text} !important; }}
+    div[data-baseweb="input"] input {{ 
+        color: {theme_text} !important; 
+        -webkit-text-fill-color: {theme_text} !important; 
+        caret-color: {theme_text} !important; 
+        background-color: transparent !important; /* <-- THIS IS THE MAGIC FIX */
+    }}
     div[data-testid="stDateInput"] label p {{ color: {theme_text} !important; }}
     div[data-testid="stDateInput"] svg {{ fill: {theme_text} !important; }}
-
+    
     /* 4. Dropdown Selectboxes (The button itself) */
     .stSelectbox div[data-baseweb="select"] {{ background-color: {theme_card} !important; border-radius: 10px !important; border-color: {theme_border} !important; }}
     .stSelectbox div[data-baseweb="select"] > div {{ background-color: transparent !important; }} /* This kills the inner white box */
