@@ -102,7 +102,14 @@ st.markdown(f"""
     /* 2. Chat Input Container (Absolute Override) */
     div[data-testid="stChatInput"] {{ background-color: transparent !important; border: none !important; }}
     div[data-testid="stChatInput"] > div {{ background-color: {theme_card} !important; border: 1px solid {theme_border} !important; border-radius: 10px !important; }}
-    div[data-testid="stChatInput"] textarea {{ color: {theme_text} !important; -webkit-text-fill-color: {theme_text} !important; caret-color: {theme_text} !important; }}
+    
+    /* Target the text area to force transparency */
+    div[data-testid="stChatInput"] textarea {{ 
+        color: {theme_text} !important; 
+        -webkit-text-fill-color: {theme_text} !important; 
+        caret-color: {theme_text} !important; 
+        background-color: transparent !important; /* <-- THIS REMOVES THE WHITE BOX */
+    }}
     div[data-testid="stChatInput"] svg {{ fill: {theme_text} !important; }}
 
     /* 3. Text, Numeric, and Date Inputs (Deep Override) */
