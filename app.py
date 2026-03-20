@@ -91,13 +91,20 @@ st.markdown(f"""
     ul[data-baseweb="menu"] {{ background-color: {theme_card} !important; border: 1px solid {theme_border} !important; }}
     ul[data-baseweb="menu"] li {{ color: {theme_text} !important; }}
 
-    /* --- FIX FOR CHAT & DATE INPUT DARK MODE --- */
-    div[data-testid="stChatInput"] {{ background-color: {theme_card} !important; border: 1px solid {theme_border} !important; }}
-    div[data-testid="stChatInput"] textarea {{ color: {theme_text} !important; caret-color: {theme_text} !important; background-color: transparent !important; }}
-    div[data-testid="stChatInput"] svg {{ fill: {theme_text} !important; }}
+   /* --- FIX FOR CHAT & DATE INPUT DARK MODE --- */
+    /* 1. Kills the giant white block at the bottom of the screen */
+    [data-testid="stBottom"] {{ background-color: {theme_fade_color} !important; }}
+    [data-testid="stBottom"] > div {{ background-color: {theme_fade_color} !important; }}
     
+    /* 2. Styles the actual Chat Input box */
+    [data-testid="stChatInput"] {{ background-color: {theme_card} !important; border: 1px solid {theme_border} !important; }}
+    [data-testid="stChatInput"] textarea {{ color: {theme_text} !important; -webkit-text-fill-color: {theme_text} !important; caret-color: {theme_text} !important; background-color: transparent !important; }}
+    [data-testid="stChatInput"] svg {{ fill: {theme_text} !important; }}
+    
+    /* 3. Styles the Date Picker and Numeric Inputs */
     div[data-baseweb="input"] {{ background-color: {theme_card} !important; border: 1px solid {theme_border} !important; }}
     div[data-baseweb="input"] input {{ color: {theme_text} !important; -webkit-text-fill-color: {theme_text} !important; caret-color: {theme_text} !important; background-color: transparent !important; }}
+    div[data-testid="stDateInput"] label p {{ color: {theme_text} !important; }}
     div[data-testid="stDateInput"] svg {{ fill: {theme_text} !important; }}
     
     .full-bleed-banner {{ 
