@@ -350,42 +350,42 @@ if st.session_state.current_page == 'RM_PAGE':
             
             col1, col2 = st.columns(2)
             with col1:
-                s_state = st.selectbox("1. State", [""] + df_filtered['State'].dropna().unique().tolist())
+                s_state = st.selectbox("1. State", df_filtered['State'].dropna().unique().tolist(), index=None, placeholder="Select State...")
                 if s_state: df_filtered = df_filtered[df_filtered['State'] == s_state]
             with col2:
-                s_dist = st.selectbox("2. District", [""] + df_filtered['District'].dropna().unique().tolist() if s_state else [])
+                s_dist = st.selectbox("2. District", df_filtered['District'].dropna().unique().tolist() if s_state else [], index=None, placeholder="Select District...")
                 if s_dist: df_filtered = df_filtered[df_filtered['District'] == s_dist]
                 
             col3, col4 = st.columns(2)
             with col3:
-                s_block = st.selectbox("3. Block", [""] + df_filtered['Block'].dropna().unique().tolist() if s_dist else [])
+                s_block = st.selectbox("3. Block", df_filtered['Block'].dropna().unique().tolist() if s_dist else [], index=None, placeholder="Select Block...")
                 if s_block: df_filtered = df_filtered[df_filtered['Block'] == s_block]
             with col4:
-                s_cluster = st.selectbox("4. Cluster", [""] + df_filtered['Cluster'].dropna().unique().tolist() if s_block else [])
+                s_cluster = st.selectbox("4. Cluster", df_filtered['Cluster'].dropna().unique().tolist() if s_block else [], index=None, placeholder="Select Cluster...")
                 if s_cluster: df_filtered = df_filtered[df_filtered['Cluster'] == s_cluster]
                 
             col5, col6 = st.columns(2)
             with col5:
-                s_gp_np = st.selectbox("5. GP/NP", [""] + df_filtered['GP/NP'].dropna().unique().tolist() if s_cluster else [])
+                s_gp_np = st.selectbox("5. GP/NP", df_filtered['GP/NP'].dropna().unique().tolist() if s_cluster else [], index=None, placeholder="Select GP/NP...")
                 if s_gp_np: df_filtered = df_filtered[df_filtered['GP/NP'] == s_gp_np]
             with col6:
-                s_gram_panchayat = st.selectbox("6. Gram Panchayat", [""] + df_filtered['Gram Panchayat'].dropna().unique().tolist() if s_gp_np else [])
+                s_gram_panchayat = st.selectbox("6. Gram Panchayat", df_filtered['Gram Panchayat'].dropna().unique().tolist() if s_gp_np else [], index=None, placeholder="Select Gram Panchayat...")
                 if s_gram_panchayat: df_filtered = df_filtered[df_filtered['Gram Panchayat'] == s_gram_panchayat]
 
             col7, col8 = st.columns(2)
             with col7:
-                s_school_type = st.selectbox("7. School Type", [""] + df_filtered['School Type'].dropna().unique().tolist() if s_gram_panchayat else [])
+                s_school_type = st.selectbox("7. School Type", df_filtered['School Type'].dropna().unique().tolist() if s_gram_panchayat else [], index=None, placeholder="Select School Type...")
                 if s_school_type: df_filtered = df_filtered[df_filtered['School Type'] == s_school_type]
             with col8:
-                s_school_name = st.selectbox("8. School Name", [""] + df_filtered['School Name'].dropna().unique().tolist() if s_school_type else [])
+                s_school_name = st.selectbox("8. School Name", df_filtered['School Name'].dropna().unique().tolist() if s_school_type else [], index=None, placeholder="Select School Name...")
                 if s_school_name: df_filtered = df_filtered[df_filtered['School Name'] == s_school_name]
 
             col9, col10 = st.columns(2)
             with col9:
-                s_udise = st.selectbox("9. UDISE Code", [""] + df_filtered['UDISE Code'].dropna().unique().tolist() if s_school_name else [])
+                s_udise = st.selectbox("9. UDISE Code", df_filtered['UDISE Code'].dropna().unique().tolist() if s_school_name else [], index=None, placeholder="Select UDISE Code...")
                 if s_udise: df_filtered = df_filtered[df_filtered['UDISE Code'] == s_udise]
             with col10:
-                s_teacher = st.selectbox("10. Teachers' Name", [""] + df_filtered["Teachers' Name"].dropna().unique().tolist() if s_udise else [])
+                s_teacher = st.selectbox("10. Teachers' Name", df_filtered["Teachers' Name"].dropna().unique().tolist() if s_udise else [], index=None, placeholder="Select Teacher...")
 
             st.write("---")
             if st.button("Start Assessment", type="primary"):
