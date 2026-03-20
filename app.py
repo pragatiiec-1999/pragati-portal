@@ -216,7 +216,13 @@ def save_to_google_sheets(rm_data, chat_history):
     time_str = now.strftime("%H:%M:%S")
     submission_id = f"REQ-{int(time.time())}"
 
-    user_answers = [msg["content"] for msg in chat_history if msg["role"] == "user"]
+    # FIX: Add Q1, Q2, Q3 Serial Numbers to the Google Sheet output
+    user_answers = []
+    q_idx = 1
+    for msg in chat_history:
+        if msg["role"] == "user":
+            user_answers.append(f"Q{q_idx}. {msg['content']}")
+            q_idx += 1
 
     data_row = [
         submission_id, date_str, time_str,
@@ -230,10 +236,8 @@ def save_to_google_sheets(rm_data, chat_history):
     try:
         scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
         
-        # Pulls the credentials from the Streamlit Advanced Settings
         creds_dict = st.secrets["gcp_service_account"]
         creds = ServiceAccountCredentials.from_json_keyfile_dict(creds_dict, scope)
-        
         client = gspread.authorize(creds)
         
         # PASTE YOUR ACTUAL SHEET ID BETWEEN THE QUOTES BELOW
@@ -244,8 +248,10 @@ def save_to_google_sheets(rm_data, chat_history):
     except Exception as e:
         st.error(f"Database Connection Error: {e}")
         return False
-# --- 4. DATA LOADER ---
-@st.cache_data
+
+# --- 4. DATA LOADER (WITH CUSTOM UI SPINNER) ---
+# show_spinner=False removes the ugly Streamlit code block
+@st.cache_data(show_spinner=False)
 def load_rm_data():
     file_name = "Process Tracker-2026-27.xlsx - RM.csv"
     try:
@@ -257,9 +263,7 @@ def load_rm_data():
     except Exception: pass 
     return pd.DataFrame() 
 
-df_rm = load_rm_data()
-
-# --- 5. STATE MANAGEMENT ---
+# --- 5. STATE MANAGEMENT & CUSTOM LOADER ---
 if 'current_page' not in st.session_state: st.session_state.current_page = 'RM_PAGE'; scroll_to_top() 
 if 'rm_data' not in st.session_state: st.session_state.rm_data = {}
 if 'chat_history' not in st.session_state: st.session_state.chat_history = []
@@ -268,12 +272,33 @@ if 'form_completed' not in st.session_state: st.session_state.form_completed = F
 if 'trigger_scroll' not in st.session_state: st.session_state.trigger_scroll = False
 if 'trigger_leaf' not in st.session_state: st.session_state.trigger_leaf = False
 
+# The Professional Animated Loader
+if 'data_loaded' not in st.session_state:
+    loader_placeholder = st.empty()
+    loader_placeholder.markdown(f"""
+        <div style='text-align: center; padding-top: 25vh;'>
+            <img src='data:image/png;base64,{logo_b64}' style='height: 80px; margin-bottom: 25px; animation: pulse 2s infinite;'>
+            <h4 style='color: #0072CE; font-weight: 500;'>Initializing Secure Portal...</h4>
+            <div style='width: 250px; height: 4px; background: {theme_border}; margin: 0 auto; border-radius: 4px; overflow: hidden;'>
+                <div style='width: 50%; height: 100%; background: #0072CE; animation: slide 1.5s infinite linear;'></div>
+            </div>
+        </div>
+        <style>
+            @keyframes pulse {{ 0% {{ transform: scale(1); opacity: 0.8; }} 50% {{ transform: scale(1.05); opacity: 1; }} 100% {{ transform: scale(1); opacity: 0.8; }} }}
+            @keyframes slide {{ 0% {{ transform: translateX(-100%); }} 100% {{ transform: translateX(200%); }} }}
+        </style>
+    """, unsafe_allow_html=True)
+    
+    df_rm = load_rm_data()
+    time.sleep(1.5) # Let the user see the premium loading animation briefly
+    loader_placeholder.empty() # Remove the loader
+    st.session_state.data_loaded = True
+else:
+    df_rm = load_rm_data()
+
 if st.session_state.trigger_scroll:
     scroll_to_top()
     st.session_state.trigger_scroll = False
-
-# --- 6. PAGE 1: RM PORTAL ---
-if st.session_state.current_page == 'RM_PAGE':
     
     # 1. REMOVE ALL STREAMLIT PADDING (Pushes banner to the absolute roof)
     st.markdown("<style>.block-container { padding-top: 0rem !important; }</style>", unsafe_allow_html=True)
