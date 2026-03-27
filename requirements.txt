@@ -4,3 +4,6 @@ openpyxl
 gspread
 oauth2client
 Pillow
+supabase
+streamlit-oauth
+python-dotenv
