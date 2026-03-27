@@ -310,8 +310,15 @@ if "user_email" not in st.session_state:
             st.write("")
             
             try:
-                client_id = st.secrets["google"]["client_id"]
-                client_secret = st.secrets["google"]["client_secret"]
+                # --- RENDER COMPATIBILITY FIX ---
+                # Pehle Render ke Environment Variables check karein, agar nahi hain toh local st.secrets
+                client_id = os.environ.get("GOOGLE_CLIENT_ID") or st.secrets.get("google", {}).get("client_id")
+                client_secret = os.environ.get("GOOGLE_CLIENT_SECRET") or st.secrets.get("google", {}).get("client_secret")
+
+                # Validation: Agar dono jagah kuch nahi mila toh error throw karein
+                if not client_id or not client_secret:
+                    raise ValueError("Authentication credentials (Client ID/Secret) missing.")
+
                 authorize_url = "https://accounts.google.com/o/oauth2/v2/auth"
                 token_url = "https://oauth2.googleapis.com/token"
                 refresh_token_url = "https://oauth2.googleapis.com/token"
@@ -320,7 +327,6 @@ if "user_email" not in st.session_state:
                 oauth2 = OAuth2Component(client_id, client_secret, authorize_url, token_url, refresh_token_url, revoke_url)
                 
                 # --- NEW: CORNER FIX ---
-                # This forces the button (and its hidden iframe) to have perfectly rounded corners on both sides
                 st.markdown("""
                     <style>
                     iframe, .stButton > button, div[data-testid="stMarkdownContainer"] button {
@@ -330,14 +336,12 @@ if "user_email" not in st.session_state:
                 """, unsafe_allow_html=True)
 
                 # --- SMART REDIRECT URL ---
-                # Automatically switches between local testing and the live website
                 if os.environ.get("RENDER"):
                     auth_redirect_uri = "https://iec-pragati-portal.onrender.com/"
                 else:
                     auth_redirect_uri = "http://localhost:8501"
 
                 # --- THE SQUEEZE FIX ---
-                # These inner columns "squeeze" the button so the text looks perfectly centered.
                 inner_c1, inner_c2, inner_c3 = st.columns([1.5, 2.5, 1.5])
                 with inner_c2:
                     result = oauth2.authorize_button(
@@ -355,10 +359,9 @@ if "user_email" not in st.session_state:
                     st.rerun()
                 
             except Exception as e:
-                # If the login breaks (e.g., missing secrets), show an error message but NO bypass button.
                 st.error(f"Setup Error: {e}") 
-                st.markdown(f"<p style='text-align: center; color: {theme_muted}; font-size: 0.9rem;'>Authentication credentials not found in secrets.toml.</p>", unsafe_allow_html=True)
-                    
+                st.markdown(f"<p style='text-align: center; color: {theme_muted}; font-size: 0.9rem;'>Make sure Environment Variables are set in Render Dashboard.</p>", unsafe_allow_html=True)
+                
     # Stop the rest of the app from loading until login is successful (or bypassed above)
     st.stop()
 
