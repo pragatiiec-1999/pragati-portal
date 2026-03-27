@@ -306,7 +306,7 @@ if "user_email" not in st.session_state:
         with st.container(border=True):
             st.markdown(f"<div style='text-align: center;'><img src='data:image/png;base64,{logo_b64}' style='height: 100px; margin-bottom: 20px;'></div>", unsafe_allow_html=True)
             st.markdown("<h3 style='text-align: center;'> Secure Portal Login</h3>", unsafe_allow_html=True)
-            st.markdown(f"<p style='text-align: center; color: {theme_muted};'>Please sign in with your authorized office email.</p>", unsafe_allow_html=True)
+            st.markdown(f"<p style='text-align: center; color: {theme_muted};'>Please sign in with your email.</p>", unsafe_allow_html=True)
             st.write("")
             
             try:
@@ -337,7 +337,7 @@ if "user_email" not in st.session_state:
 
                 # --- SMART REDIRECT URL ---
                 if os.environ.get("RENDER"):
-                    auth_redirect_uri = "https://iec-pragati-portal.onrender.com/"
+                    auth_redirect_uri = "https://pragati-portal.onrender.com"
                 else:
                     auth_redirect_uri = "http://localhost:8501"
 
