@@ -276,26 +276,38 @@ st.markdown(f"""
     }}
 
     /* =========================================
-       OAUTH BUTTON FIX (CENTERING & SIZING)
+       PREMIUM OAUTH BUTTON (GLASSMORPHISM & ANIMATION)
        ========================================= */
     .centered-oauth-btn {{
         display: flex !important;
         justify-content: center !important;
         align-items: center !important;
         width: 100% !important;
-        margin-top: 15px !important;
+        margin-top: 25px !important;
+        margin-bottom: 10px !important;
+        position: relative;
     }}
 
-    /* Force the iframe to behave like a normal centered button */
+    /* The Premium Shell around the Secure Iframe */
     iframe[title*="streamlit_oauth"] {{
         width: 100% !important;
-        max-width: 260px !important; /* Locks button size */
+        max-width: 280px !important; 
         margin: 0 auto !important;
         display: block !important;
-        border-radius: 8px !important;
+        border-radius: 12px !important; /* Smooth curved edges */
+        border: 2px solid rgba(0, 114, 206, 0.2) !important; /* Subtle blue border */
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05), 0 0 20px rgba(0, 114, 206, 0.05) !important;
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
     }}
 
-    /* Target the invisible parent container Streamlit creates */
+    /* Magic Hover Effect: Lifts up and glows blue */
+    .centered-oauth-btn:hover iframe[title*="streamlit_oauth"] {{
+        transform: translateY(-4px) !important;
+        border: 2px solid rgba(0, 114, 206, 0.8) !important;
+        box-shadow: 0 10px 25px rgba(0, 114, 206, 0.25), 0 0 30px rgba(0, 114, 206, 0.15) !important;
+    }}
+
+    /* Keeps everything perfectly centered */
     div.element-container:has(iframe[title*="streamlit_oauth"]) {{
         display: flex !important;
         justify-content: center !important;
@@ -421,6 +433,32 @@ def init_connection():
 
 supabase = init_connection()
 
+# --- NATIVE MULTIPLE BUCKET UPLOAD HELPER ---
+def upload_multiple_to_bucket(files_list):
+    urls = []
+    if not files_list:
+        return urls
+        
+    for file_obj in files_list:
+        try:
+            # Data from session state dictionary
+            file_bytes = file_obj['bytes']
+            file_name = file_obj['name']
+            
+            file_path = f"{int(time.time())}_{file_name}"
+            
+            supabase.storage.from_("iec_documents").upload(
+                path=file_path,
+                file=file_bytes,
+                file_options={"content-type": file_obj['type']}
+            )
+            public_url = supabase.storage.from_("iec_documents").get_public_url(file_path)
+            urls.append(public_url)
+        except Exception as e:
+            st.error(f"Failed to upload {file_name}: {e}")
+            
+    return urls
+
 # 2. HEARTBEAT PING (Cron-job.org ke liye)
 # Yeh har page load par Supabase ko ek "Hello" bhejega bina cache ke
 if supabase:
@@ -536,6 +574,17 @@ elif st.session_state.step == 'QUESTIONNAIRE':
     st.markdown('<div class="fade-in">', unsafe_allow_html=True)
     
     proc = st.session_state.responses['process_type']
+    
+    # ==========================================
+    # NEW: SHOW SELECTED PROCESS BADGE
+    # ==========================================
+    st.markdown(f"""
+        <div style="background: rgba(0, 114, 206, 0.08); border-left: 5px solid #0072CE; padding: 12px 20px; border-radius: 6px; margin-bottom: 25px;">
+            <div style="color: {theme_muted}; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 500;">Active Assessment</div>
+            <div style="color: #0072CE; font-weight: 700; font-size: 1.3rem;">{proc}</div>
+        </div>
+    """, unsafe_allow_html=True)
+    
     if proc in ["Teacher's Collective", "Classroom Observation", "School Visit"]:
         active_list = logic.get_form_questions(proc)
         heading = "सभी प्रश्न अनिवार्य हैं / All questions are mandatory"
@@ -588,72 +637,57 @@ elif st.session_state.step == 'QUESTIONNAIRE':
 
     st.divider()
     
-    # --- CUSTOM REACT-STYLE UPLOADER ---
-    uploader_html = """
-    <div id="upload-container" style="
-        border: 2px dashed #0072CE;
-        border-radius: 15px;
-        padding: 40px;
-        text-align: center;
-        background: rgba(0, 114, 206, 0.05);
-        cursor: pointer;
-        transition: 0.3s;
-        font-family: 'Inter', sans-serif;
-    " onmouseover="this.style.background='rgba(0, 114, 206, 0.1)'" 
-       onmouseout="this.style.background='rgba(0, 114, 206, 0.05)'">
+    # --- PREMIUM STYLED NATIVE UPLOADER ---
+    st.markdown("""
+        <style>
+        /* Modern Glass Dropzone */
+        [data-testid="stFileUploadDropzone"] {
+            background-color: rgba(0, 114, 206, 0.05) !important;
+            border: 2px dashed #0072CE !important;
+            border-radius: 15px !important;
+            padding: 40px !important;
+            text-align: center !important;
+            transition: all 0.3s ease !important;
+        }
+        [data-testid="stFileUploadDropzone"]:hover {
+            background-color: rgba(0, 114, 206, 0.1) !important;
+        }
+        /* Hide Default Boring Cloud Icon */
+        [data-testid="stFileUploadDropzone"] svg { display: none !important; }
         
-        <div style="font-size: 40px; margin-bottom: 10px;">📁</div>
-        <div style="color: #0072CE; font-weight: 600; font-size: 18px;">
-            Click or Drag Assets Here
-        </div>
-        <div style="color: #64748b; font-size: 14px; margin-top: 5px;">
-            Support for PDF, XLSX, DOCX, PNG, JPG (Max 20MB)
-        </div>
-        
-        <button style="
-            margin-top: 20px;
-            background: #0072CE;
-            color: white;
-            border: none;
-            padding: 10px 25px;
-            border-radius: 8px;
+        /* Inject Custom Folder Emoji & Text */
+        [data-testid="stFileUploadDropzone"]::before {
+            content: '📁 Drag and drop files here';
+            display: block;
+            font-size: 20px;
+            color: #0072CE;
             font-weight: 600;
-            cursor: pointer;
-        ">Browse Files</button>
-        
-        <input type="file" id="fileInput" style="display:none" accept=".pdf,.xlsx,.docx,.png,.jpg,.jpeg">
-    </div>
-
-    <script>
-        const container = document.getElementById('upload-container');
-        const input = document.getElementById('fileInput');
-        
-        container.onclick = () => input.click();
-        
-        input.onchange = (e) => {
-            const file = e.target.files[0];
-            if(file) {
-                // PREMIUM SUCCESS ANIMATION
-                container.innerHTML = `
-                    <div style="font-size: 45px; margin-bottom: 10px; animation: popIn 0.5s ease;">✅</div>
-                    <div style="color: #0f172a; font-weight: 600; font-size: 16px;">${file.name}</div>
-                    <div style="color: #10b981; font-size: 14px; margin-top: 5px; font-weight: 500;">Ready for submission</div>
-                `;
-                container.style.border = "2px solid #10b981";
-                container.style.background = "rgba(16, 185, 129, 0.05)";
-            }
-        };
-    </script>
-    <style>
-        @keyframes popIn { 0% { transform: scale(0); } 80% { transform: scale(1.2); } 100% { transform: scale(1); } }
-    </style>
-    """
-    components.html(uploader_html, height=260)
+            margin-bottom: 10px;
+        }
+        /* Style the Browse Button */
+        [data-testid="stFileUploadDropzone"] button {
+            background-color: #0072CE !important;
+            color: white !important;
+            border-radius: 8px !important;
+            font-weight: bold !important;
+            border: none !important;
+            padding: 10px 20px !important;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+    
+    # This is the Streamlit native uploader (100% reliable for passing data)
+    uploaded_files = st.file_uploader(
+        "Upload Documents", 
+        accept_multiple_files=True, 
+        type=['pdf', 'docx', 'xlsx', 'png', 'jpg', 'jpeg', 'csv', 'txt'], # <-- YEH LINE ADD KI HAI (Blocks Videos)
+        label_visibility="collapsed"
+    )
     
     st.markdown('<div class="red-tilt-note">सबमिट करने के बाद कोई बदलाव संभव नहीं है / Final Submission: Records cannot be modified after confirmation.</div>', unsafe_allow_html=True)
     st.write("")
 
-    # --- ENHANCED NEXT BUTTON WITH VALIDATION ---
+   # --- ENHANCED NEXT BUTTON WITH VALIDATION & FILE SAVING ---
     if st.button("Next", type="primary", use_container_width=True):
         # Mandatory Checkbox Validation for Indicator Processes
         if proc not in ["Teacher's Collective", "Classroom Observation", "School Visit"]:
@@ -663,6 +697,16 @@ elif st.session_state.step == 'QUESTIONNAIRE':
             if not is_any_checked:
                 st.error("⚠️ कृपया कम से कम एक इंडिकेटer चुनें / Please select at least one indicator.")
                 st.stop()
+        
+        # --- NEW: SAVE FILES TO MEMORY BEFORE SWITCHING PAGES ---
+        st.session_state.pending_uploads = []
+        if 'uploaded_files' in locals() and uploaded_files:
+            for f in uploaded_files:
+                st.session_state.pending_uploads.append({
+                    "name": f.name,
+                    "type": f.type,
+                    "bytes": f.read() # File ka saara data yahan lock ho jayega
+                })
         
         # Proceed if validation passes
         st.session_state.step = 'RM_PAGE'
@@ -754,40 +798,55 @@ elif st.session_state.step == 'RM_PAGE':
             st.error("Error: State is mandatory. Please select a state before submitting.")
         else:
             with st.spinner("Writing to Database..."):
-                # PAYLOAD ALIGNED TO YOUR DATABASE SCHEMA
+                
+                # 1. Initialize variables
+                file_urls = []
+                urls_string = None  
+                
+                # 2. Check Session State for files and upload
+                pending_files = st.session_state.get('pending_uploads', [])
+                if pending_files:
+                    file_urls = upload_multiple_to_bucket(pending_files)
+
+                # 3. Join URLs
+                if file_urls:
+                    urls_string = ", ".join(file_urls)
+                    
+                # 4. Payload
                 db_payload = {
                     "verified_email": st.session_state.get('user_email', 'Unauthenticated User'),
-                    "selected_name": st.session_state.responses.get('observer_name'), # Matches your 'selected_name' column
-                    "process_type": st.session_state.responses.get('process_type'),  # Fixed spelling to match your DB 'procees_type'
+                    "selected_name": st.session_state.responses.get('observer_name'),
+                    "process_type": st.session_state.responses.get('process_type'), 
                     "state": selected_state,
                     "district": dist,
                     "block": block,
                     "cluster": cluster,
-                    "gp_np": gp_np_sel,       # Fixed from 'gp_np_type' to match your DB 'gp_np'
+                    "gp_np": gp_np_sel,       
                     "gram_panchayat": gp_sel,
                     "school_type": school_type,
                     "udise_code": hidden_udise,
-                    "teachers_name": teacher_sel, # Fixed to match your DB 'teachers_name'
+                    "teachers_name": teacher_sel,
                     "role": role,
                     "post": post,
+                    "attachment_url": urls_string, # Save string of URLs to database
                     "answers": {k:v for k,v in st.session_state.responses.items() if k not in ['observer_name', 'process_type']}
                 }
                 
+                # 5. Insert to DB
                 if supabase:
                     try:
-                        # Database insert attempt
                         supabase.table("process_submissions_2026").insert(db_payload).execute()
                         
-                        # --- SUCCESS PATH ---
+                        # Clear memory after successful upload
+                        if 'pending_uploads' in st.session_state:
+                            del st.session_state['pending_uploads']
+                            
                         time.sleep(1)
                         st.session_state.form_completed = True
                         st.session_state.trigger_scroll = True
                         st.rerun()
-                        
                     except Exception as e:
-                        # --- ERROR PATH ---
                         st.error(f"Database Error: {e}")
-                        st.warning("Data save nahi hua. Please ensure column names match exactly.")
                         st.stop() 
                 else:
                     st.error("Supabase Connection Error: Database initialize nahi ho paya.")
