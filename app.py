@@ -9,6 +9,7 @@ import rm_config as config  # Pulls directly from your generated file
 import base64
 import os
 import gc
+import io
 from PIL import Image
     
 # ==========================================
